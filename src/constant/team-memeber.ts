@@ -9,7 +9,7 @@ interface TeamMember {
 }
 
 
-const teams: Record<string, TeamMember[]> = {
+export const teams: Record<string, TeamMember[]> = {
   'President & Vice President': [
     {
       id: 1,

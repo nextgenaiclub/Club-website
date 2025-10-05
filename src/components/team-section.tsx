@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { Linkedin, Github } from 'lucide-react';
+import { teams } from '@/constant/team-memeber';
 
 interface TeamMember {
   id: number;

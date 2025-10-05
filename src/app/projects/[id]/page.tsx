@@ -3,9 +3,7 @@ import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Users, Target, ArrowLeft } from "lucide-react"
 import Link from "next/link"
-
-// Extended dummy project data with full details
-
+import { projectsData } from "@/constant/project-data"
 
 export async function generateStaticParams() {
   return projectsData.map((project) => ({
