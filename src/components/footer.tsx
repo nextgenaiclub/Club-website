@@ -80,7 +80,7 @@ export default function NextGenAIFooter() {
         </div>
 
         {/* Middle section with quick links */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-y border-yellow-900/30">
+        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-y border-yellow-900/30">
           <div>
             <h3 className="font-semibold text-yellow-400 mb-2 text-xs">Get Involved</h3>
             <div className="space-y-1 text-xs text-gray-300">
@@ -113,7 +113,7 @@ export default function NextGenAIFooter() {
               <a href="#" className="block hover:text-white transition-colors">LinkedIn</a>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Bottom section with copyright and CTA */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">

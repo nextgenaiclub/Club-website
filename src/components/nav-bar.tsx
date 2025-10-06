@@ -31,7 +31,7 @@ export function GenAIClubHeader() {
     setIsOpen(false);
   };
 
-  const navigationItems = ["About", "Events", "Projects", "Contact"];
+  const navigationItems = ["About", "Events", "Teams" ,  "Projects", "Contact"];
 
   return (
     <header
