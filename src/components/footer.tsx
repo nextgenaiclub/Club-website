@@ -26,17 +26,21 @@ export default function NextGenAIFooter() {
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-                <img 
+                <Image 
                   src="/logo.png"
-                  alt="logo"
+                  alt="NextGenAI Club Logo"
                   width={32}
                   height={32}
+                  className="object-contain"
                 />
               </div>
               <h1 className="text-xl md:text-2xl font-bold">
                 NextGen<span className="text-yellow-400">AI</span> Club
               </h1>
             </div>
+            <p className="text-yellow-400/80 text-xs font-medium tracking-wider uppercase mb-2">
+              Exploring Intelligence, Expanding Horizons
+            </p>
             <p className="text-gray-300 text-xs md:text-sm max-w-md leading-relaxed">
               Empowering students with AI innovation. Join labs, projects, and mentorship for a hands-on learning experience.
             </p>
@@ -44,15 +48,15 @@ export default function NextGenAIFooter() {
             <div className="space-y-1">
               <div className="flex items-center gap-1 text-gray-300 text-xs">
                 <Phone className="w-3 h-3 text-yellow-400" />
-                <span>+1 (555) 123-NEXTAI</span>
+                <span>+91 74478 67557</span>
               </div>
               <div className="flex items-center gap-1 text-gray-300 text-xs">
                 <Mail className="w-3 h-3 text-yellow-400" />
-                <span>info@nextgenai.club</span>
+                <span>nextgenai.club@vupune.ac.in</span>
               </div>
               <div className="flex items-start gap-1 text-gray-300 text-xs">
                 <MapPin className="w-3 h-3 text-yellow-400 mt-0.5" />
-                <span>Campus Innovation Hub<br />Tech City, CA 94105</span>
+                <span>Vishwakarma University<br />Kondhwa Budruk, Pune, Maharashtra 411048</span>
               </div>
             </div>
           </div>
@@ -123,12 +127,20 @@ export default function NextGenAIFooter() {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-2">
-            <button className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-md transition-colors text-xs font-medium">
+            <a
+              href="https://chat.whatsapp.com/L6LzenOpW8GG44q1fHjM4s"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-md transition-colors text-xs font-medium text-center"
+            >
               Join Now
-            </button>
-            <button className="border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black px-4 py-2 rounded-md transition-colors text-xs font-medium">
+            </a>
+            <a
+              href="/about"
+              className="border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black px-4 py-2 rounded-md transition-colors text-xs font-medium text-center"
+            >
               Learn More
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -1,10 +1,10 @@
 "use client"
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import AIBackground from './ai-background';
 
 export default function GenAIClubHero() {
   const [currentVideo, setCurrentVideo] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Video content array for Gen AI Club
   const videoContent = [
@@ -12,19 +12,16 @@ export default function GenAIClubHero() {
       title: "AI INNOVATION",
       subtitle: "Future Forward",
       description: "Pioneering the next generation of AI solutions",
-      videoUrl: "/ai-innovation-video.mp4", // Replace with actual AI-themed video URL
     },
     {
       title: "MACHINE LEARNING",
       subtitle: "Intelligent Systems",
       description: "Empowering machines to learn and evolve",
-      videoUrl: "/ml-video.mp4", // Replace with actual AI-themed video URL
     },
     {
       title: "GENERATIVE AI",
       subtitle: "Creative Horizons",
       description: "Unleashing limitless creativity through AI",
-      videoUrl: "/gen-ai-video.mp4", // Replace with actual AI-themed video URL
     }
   ];
 
@@ -35,21 +32,6 @@ export default function GenAIClubHero() {
     }, 8000);
     return () => clearInterval(interval);
   }, []);
-
-  // Handle video playback with error catching
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      if (video.paused) {
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch((error) => {
-            console.warn('Video playback interrupted:', error.message);
-          });
-        }
-      }
-    }
-  }, [currentVideo]);
 
   // Navigation functions
   const goToPrevious = () => {
@@ -62,40 +44,14 @@ export default function GenAIClubHero() {
 
   return (
     <section className="relative w-full h-screen bg-black overflow-hidden">
-      {/* Video Background */}
+      {/* AI Generated Background */}
       <div className="absolute inset-0">
-        {videoContent[currentVideo].videoUrl ? (
-          <video
-            ref={videoRef}
-            key={currentVideo}
-            className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-          >
-            <source src={videoContent[currentVideo].videoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        ) : (
-          // Fallback placeholder if no video URL
-          <div className="w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-800 relative">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center space-y-4">
-                <div className="w-24 h-24 mx-auto bg-white/5 rounded-full flex items-center justify-center">
-                  <div className="w-16 h-16 bg-white/10 rounded-full"></div>
-                </div>
-                <p className="text-sm text-white/60 font-light tracking-wider">VIDEO PLACEHOLDER</p>
-                <p className="text-xs text-white/40">Add your video URL to videoContent array</p>
-              </div>
-            </div>
-          </div>
-        )}
-        
+        <AIBackground mode={currentVideo} />
+
         {/* Reduced Translucent Overlay for Premium Look */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-black/30"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/10 to-black/30"></div>
-        <div className="absolute inset-0 bg-black/10 backdrop-blur-[1px]"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/40"></div>
+        <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]"></div>
       </div>
 
       {/* Content Overlay */}
@@ -104,7 +60,7 @@ export default function GenAIClubHero() {
         <div className="flex-1 flex items-end pb-20">
           <div className="w-full px-6 md:px-12 lg:px-20">
             <div className="max-w-7xl mx-auto">
-              
+
               {/* Main Content */}
               <div className="space-y-8">
                 {/* Mobile-first minimal text */}
@@ -134,11 +90,23 @@ export default function GenAIClubHero() {
                   </p>
                 </div>
 
+                {/* Tagline */}
+                <div className="pt-4">
+                  <p className="text-sm md:text-base font-light text-yellow-400/90 tracking-[0.2em] uppercase">
+                    Exploring Intelligence, Expanding Horizons
+                  </p>
+                </div>
+
                 {/* CTA Button */}
                 <div className="pt-6">
-                  <button className="w-full md:w-auto bg-white text-black border hover:bg-transparent hover:text-white hover:border-white transition-colors duration-300 rounded-none py-4 px-12 text-xs tracking-wider font-medium uppercase">
+                  <a
+                    href="https://chat.whatsapp.com/L6LzenOpW8GG44q1fHjM4s"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block w-full md:w-auto bg-white text-black border hover:bg-transparent hover:text-white hover:border-white transition-colors duration-300 rounded-none py-4 px-12 text-xs tracking-wider font-medium uppercase text-center"
+                  >
                     Join the Club
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -158,7 +126,7 @@ export default function GenAIClubHero() {
                 >
                   <ChevronLeft className="w-4 h-4 text-white" />
                 </button>
-                
+
                 <button
                   onClick={goToNext}
                   className="p-3 border border-white/20 hover:border-white/40 transition-colors bg-black/80 backdrop-blur-sm"
@@ -174,9 +142,8 @@ export default function GenAIClubHero() {
                   <button
                     key={index}
                     onClick={() => setCurrentVideo(index)}
-                    className={`h-px transition-all duration-500 ${
-                      index === currentVideo ? 'bg-white w-12' : 'bg-white/20 w-6'
-                    }`}
+                    className={`h-px transition-all duration-500 ${index === currentVideo ? 'bg-white w-12' : 'bg-white/20 w-6'
+                      }`}
                   />
                 ))}
               </div>

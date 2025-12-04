@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -25,13 +26,13 @@ export function GenAIClubHeader() {
 
   const handleJoinWhatsApp = () => {
     window.open(
-      "https://wa.me/1234567890?text=Hi%20GenAI%20College%20Club%20%F0%9F%9A%80",
+      "https://chat.whatsapp.com/L6LzenOpW8GG44q1fHjM4s",
       "_blank"
     );
     setIsOpen(false);
   };
 
-  const navigationItems = ["About", "Events", "Teams" ,  "Projects", "Contact"];
+  const navigationItems = ["About", "Events", "Teams", "Mentors", "Projects", "Contact"];
 
   return (
     <header
@@ -41,6 +42,7 @@ export function GenAIClubHeader() {
           ? "backdrop-blur-md bg-black/70 border-b border-yellow-400/20 shadow-lg"
           : "bg-transparent"
       )}
+      suppressHydrationWarning
     >
       <nav
         className={cn(
@@ -48,22 +50,30 @@ export function GenAIClubHeader() {
           "md:px-6 lg:px-8 sm:px-3"
         )}
         aria-label="Main navigation"
+        suppressHydrationWarning
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2" aria-label="GenAI College Club home">
-          <div className="h-8 w-8 rounded-md bg-gradient-to-r from-yellow-400 to-yellow-500 flex items-center justify-center">
-            <span className="text-black font-bold text-sm">AI</span>
+        <Link href="/" className="flex items-center gap-3" aria-label="NextGenAI Club home">
+          <div className="flex items-center justify-center">
+            <Image 
+              src="/logo.png" 
+              alt="NextGenAI Club Logo" 
+              width={48}
+              height={48}
+              className="object-contain"
+              priority
+            />
           </div>
-          <span className="font-bold text-xl tracking-tight text-yellow-400">
-            GenAI College Club
+          <span className="font-bold text-2xl tracking-tight text-white">
+            NextGen<span className="text-yellow-400">AI</span> Club
           </span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 text-sm md:flex">
-          {navigationItems.map((item, idx) => (
+          {navigationItems.map((item) => (
             <Link
-              key={`desktop-${item}-${idx}`}
+              key={item}
               href={`/${item.toLowerCase()}`}
               className="text-white opacity-80 hover:opacity-100 hover:text-yellow-400 transition-all duration-200"
             >
@@ -102,18 +112,18 @@ export function GenAIClubHeader() {
               className="w-[300px] sm:w-[360px] bg-black/95 backdrop-blur-md border-l border-yellow-400/20 text-white p-6"
             >
               <SheetTitle className="text-xl font-semibold text-yellow-400">
-                GenAI College Club
+                NextGenAI Club
               </SheetTitle>
               <SheetDescription className="text-sm text-gray-300 mb-6">
-                Explore our AI community
+                Exploring Intelligence, Expanding Horizons
               </SheetDescription>
 
               <div className="flex flex-col h-full">
                 {/* Mobile Navigation */}
                 <nav className="flex flex-col gap-4" role="navigation">
-                  {navigationItems.map((item, idx) => (
+                  {navigationItems.map((item) => (
                     <Link
-                      key={`mobile-${item}-${idx}`}
+                      key={item}
                       href={`/${item.toLowerCase()}`}
                       className="text-lg font-medium text-white hover:text-yellow-400 transition-colors py-2 px-3 rounded-md hover:bg-yellow-400/10"
                       onClick={() => setIsOpen(false)}

@@ -2,6 +2,7 @@ import type React from "react"
 import { Suspense } from "react"
 import { ContactInfoCards } from "@/components/contact/contact-info-cards"
 import { ContactForm } from "@/components/contact/contact-form"
+import { ContactActionButtons } from "@/components/contact/contact-action-buttons"
 
 export const metadata = {
   title: "Contact | Club",
@@ -36,6 +37,7 @@ export default function ContactPage() {
             <h1 className="mt-2 text-balance text-4xl font-semibold tracking-tight md:text-5xl">
               CONTACT <span className="text-accent">US</span>
             </h1>
+
             <p className="mt-4 max-w-2xl text-muted-foreground">
               We’re here to help. Reach out for membership, events, or partnerships. Our team will get back to you
               promptly.
@@ -99,10 +101,12 @@ export default function ContactPage() {
                   Let<span className="text-accent">&apos;</span>s talk
                 </h3>
                 <div className="mt-6 flex items-center gap-4">
-                  {/* simple round icon links (placeholders) */}
+                  {/* Social media links */}
                   <a
                     aria-label="LinkedIn"
-                    href="#"
+                    href="https://www.linkedin.com/company/nextgenai-vu"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border hover:bg-accent hover:text-accent-foreground transition-colors"
                   >
                     <span className="sr-only">LinkedIn</span>
@@ -115,7 +119,9 @@ export default function ContactPage() {
                   </a>
                   <a
                     aria-label="Instagram"
-                    href="#"
+                    href="https://www.instagram.com/nextgenai_vu"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border hover:bg-accent hover:text-accent-foreground transition-colors"
                   >
                     <span className="sr-only">Instagram</span>
@@ -126,33 +132,24 @@ export default function ContactPage() {
                       />
                     </svg>
                   </a>
-                  <a
-                    aria-label="Twitter"
-                    href="#"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border hover:bg-accent hover:text-accent-foreground transition-colors"
-                  >
-                    <span className="sr-only">Twitter</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-                      <path
-                        fill="currentColor"
-                        d="M17.688 3H20.5l-6.15 7.031L21.5 21h-6.344l-4.957-6.094L4.5 21H1.688l6.586-7.52L2 3h6.469l4.473 5.688zM16.594 19h1.758L7.469 5h-1.91z"
-                      />
-                    </svg>
-                  </a>
                 </div>
               </div>
               <div className="text-sm text-muted-foreground">
                 <address className="not-italic leading-6">
-                  457 Waverly Ave, Manchester
+                  Vishwakarma University
                   <br />
-                  Kentway 38495
+                  Kondhwa Budruk, Pune, Maharashtra 411048
                 </address>
                 <p className="mt-3">
-                  support@yourclub.com
+                  nextgenai.club@vupune.ac.in
                   <br />
-                  +123 456 7890
+                  +91 74478 67557
                 </p>
-                <div className="mt-5 flex gap-4 text-xs">
+                
+                {/* Action Buttons */}
+                <ContactActionButtons />
+
+                <div className="mt-6 flex gap-4 text-xs">
                   <a href="#" className="hover:text-accent underline underline-offset-4">
                     Privacy Policy
                   </a>

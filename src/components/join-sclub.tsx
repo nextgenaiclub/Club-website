@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Users, Calendar, Code, Brain } from 'lucide-react';
 
@@ -10,30 +9,22 @@ function JoinClubSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 to-black">
-      {/* Background Image */}
+      {/* Background Gradient Overlay */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/genai-club-bg.png"
-          alt="NEXTGenAI Club Background"
-          fill
-          className="object-cover opacity-50"
-          priority
-        />
-        {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
         {/* Main Heading */}
-        <h1 className="text-6xl md:text-8xl font-extrabold tracking-widest text-yellow-400 mb-8 leading-none drop-shadow-lg">
-          JOIN NEXTGenAI
+        <h1 className="text-6xl md:text-8xl font-extrabold tracking-widest text-white mb-8 leading-none drop-shadow-lg">
+          JOIN NEXTGen<span className="text-yellow-400">AI</span>
         </h1>
 
         {/* Subheading */}
         <div className="mb-12">
           <p className="text-xl md:text-2xl font-light tracking-[0.3em] text-white mb-2">
-            WELCOME TO THE <span className="font-bold italic text-yellow-400">NEXTGenAI</span> CLUB
+            WELCOME TO THE <span className="font-bold italic">NEXTGen<span className="text-yellow-400">AI</span></span> CLUB
           </p>
           <p className="text-lg md:text-xl font-light tracking-[0.2em] text-white/90">
             A COMMUNITY FOR AI INNOVATORS & ENTHUSIASTS
@@ -46,6 +37,7 @@ function JoinClubSection() {
             className="group bg-yellow-400 text-black hover:bg-yellow-300 px-10 py-5 text-base font-semibold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-110 active:scale-95 shadow-lg hover:shadow-xl"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={() => window.open('https://chat.whatsapp.com/L6LzenOpW8GG44q1fHjM4s', '_blank')}
           >
             JOIN THE COMMUNITY
             <ArrowRight

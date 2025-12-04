@@ -1,173 +1,80 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useMemo, useCallback } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Filter } from "lucide-react"
 import { EventCard } from "@/components/events/event-card"
 
 export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All")
+  const [selectedStatus, setSelectedStatus] = useState<string>("All Events")
 
-  // Expanded dummy events data
-  const allEvents = [
+  // Events organized by status
+  const pastEvents = [
     {
       id: 1,
-      title: "Regional Championship Finals",
+      title: "Neural Canvas",
       description:
-        "Join us for the season finale as our top teams compete for the regional championship title. Spectators welcome.",
-      date: "2025-04-15",
-      time: "2:00 PM - 6:00 PM",
-      location: "Main Arena",
+        "Successfully completed poster making competition. Students showcased their creativity and digital design skills using Figma, exploring the power of AI in creative innovation with the theme 'From Code to Creativity: The AI Journey'.",
+      date: "2024-09-16",
+      time: "1:00 PM - 3:00 PM",
+      location: "SAP LAB, Vishwakarma University",
       category: "Competition",
-      spotsAvailable: 120,
-      image: "/championship-trophy.png",
-    },
-    {
-      id: 2,
-      title: "Youth Skills Workshop",
-      description:
-        "Interactive training session for ages 10-16 focusing on fundamental techniques, strategy, and team coordination.",
-      date: "2025-04-08",
-      time: "10:00 AM - 12:00 PM",
-      location: "Training Center",
-      category: "Training",
-      spotsAvailable: 30,
-      image: "/youth-sports-training-program.jpg",
-    },
-    {
-      id: 3,
-      title: "Community Open Day",
-      description:
-        "Free event for families to tour our facilities, meet coaches, and learn about membership options. Refreshments provided.",
-      date: "2025-04-20",
-      time: "11:00 AM - 4:00 PM",
-      location: "Club Grounds",
-      category: "Community",
-      spotsAvailable: 200,
-      image: "/community-sports-event.jpg",
-    },
-    {
-      id: 4,
-      title: "Advanced Coaching Seminar",
-      description:
-        "Professional development session for coaches featuring guest speakers and hands-on tactical demonstrations.",
-      date: "2025-04-12",
-      time: "6:00 PM - 9:00 PM",
-      location: "Conference Room",
-      category: "Development",
-      spotsAvailable: 25,
-      image: "/sports-coach-training-session.jpg",
-    },
-    {
-      id: 5,
-      title: "Annual Fundraiser Gala",
-      description:
-        "Elegant evening event supporting our scholarship fund. Includes dinner, entertainment, and silent auction.",
-      date: "2025-05-03",
-      time: "7:00 PM - 11:00 PM",
-      location: "Grand Ballroom",
-      category: "Fundraiser",
-      spotsAvailable: 150,
-      image: "/scholarship-award-ceremony.jpg",
-    },
-    {
-      id: 6,
-      title: "Summer Training Camp",
-      description:
-        "Intensive week-long program for serious athletes looking to elevate their game. Includes meals and training gear.",
-      date: "2025-06-15",
-      time: "9:00 AM - 5:00 PM",
-      location: "Training Complex",
-      category: "Training",
-      spotsAvailable: 40,
-      image: "/modern-sports-facility-interior.jpg",
-    },
-    {
-      id: 7,
-      title: "Inter-Club Tournament",
-      description:
-        "Competitive tournament featuring teams from neighboring clubs. Multiple divisions and age categories available.",
-      date: "2025-04-25",
-      time: "8:00 AM - 6:00 PM",
-      location: "Main Arena",
-      category: "Competition",
-      spotsAvailable: 80,
-      image: "/championship-trophy.png",
-    },
-    {
-      id: 8,
-      title: "Beginner's Bootcamp",
-      description:
-        "Perfect for newcomers! Learn the basics in a supportive environment with our experienced coaching staff.",
-      date: "2025-04-18",
-      time: "5:00 PM - 7:00 PM",
-      location: "Training Center",
-      category: "Training",
-      spotsAvailable: 35,
-      image: "/youth-sports-training-program.jpg",
-    },
-    {
-      id: 9,
-      title: "Family Fun Day",
-      description:
-        "Bring the whole family for games, activities, face painting, and BBQ. Free entry for all members and guests.",
-      date: "2025-05-10",
-      time: "12:00 PM - 5:00 PM",
-      location: "Club Grounds",
-      category: "Community",
-      spotsAvailable: 300,
-      image: "/community-sports-event.jpg",
-    },
-    {
-      id: 10,
-      title: "Leadership Development Workshop",
-      description:
-        "Build leadership skills for team captains and senior members. Focus on communication, motivation, and strategy.",
-      date: "2025-04-22",
-      time: "3:00 PM - 6:00 PM",
-      location: "Conference Room",
-      category: "Development",
-      spotsAvailable: 20,
-      image: "/sports-coach-training-session.jpg",
-    },
-    {
-      id: 11,
-      title: "Charity Marathon",
-      description:
-        "Run for a cause! All proceeds support local youth sports programs. Multiple distance options available.",
-      date: "2025-05-18",
-      time: "7:00 AM - 12:00 PM",
-      location: "City Park",
-      category: "Fundraiser",
-      spotsAvailable: 250,
-      image: "/scholarship-award-ceremony.jpg",
-    },
-    {
-      id: 12,
-      title: "Elite Performance Camp",
-      description:
-        "High-intensity training for competitive athletes. Guest coaches from professional teams. Limited spots.",
-      date: "2025-06-22",
-      time: "8:00 AM - 4:00 PM",
-      location: "Training Complex",
-      category: "Training",
-      spotsAvailable: 15,
-      image: "/modern-sports-facility-interior.jpg",
+      participants: 25,
+      status: "Completed",
+      image: "/neural-canvas-poster.jpg",
     },
   ]
 
-  const categories = ["All", "Competition", "Training", "Community", "Development", "Fundraiser"]
+  const upcomingEvents: typeof pastEvents = [
+    // Events will be added as they are planned
+  ]
 
-  const filteredEvents =
-    selectedCategory === "All" ? allEvents : allEvents.filter((event) => event.category === selectedCategory)
+  const activeEvents: typeof pastEvents = [
+    // Currently no active events - will be added as needed
+  ]
 
-  // Get the next featured event (earliest date)
-  const featuredEvent = allEvents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0]
+  // Combine all events for filtering
+  const allEvents = [...pastEvents, ...upcomingEvents, ...activeEvents]
+
+  const categories = ["All", "Competition", "Training", "Community", "Workshop", "Research"]
+  const eventStatuses = ["All Events", "Upcoming", "Active", "Past"]
+
+  // Memoize event collections for better performance
+  const eventsByStatus = useMemo(() => ({
+    "Upcoming": upcomingEvents,
+    "Active": activeEvents,
+    "Past": pastEvents,
+    "All Events": allEvents
+  }), [])
+
+  // Memoize filtered events to prevent unnecessary recalculations
+  const filteredEvents = useMemo(() => {
+    const statusEvents = eventsByStatus[selectedStatus as keyof typeof eventsByStatus] || allEvents
+    return selectedCategory === "All"
+      ? statusEvents
+      : statusEvents.filter(event => event.category === selectedCategory)
+  }, [selectedStatus, selectedCategory, eventsByStatus, allEvents])
+
+
+
+  // Optimize button click handlers
+  const handleStatusChange = useCallback((status: string) => {
+    setSelectedStatus(status)
+    // Reset category to "All" when switching status for better UX
+    if (selectedCategory !== "All") {
+      setSelectedCategory("All")
+    }
+  }, [selectedCategory])
+
+  const handleCategoryChange = useCallback((category: string) => {
+    setSelectedCategory(category)
+  }, [])
 
   return (
     <div
-      className="dark"
+      className="dark min-h-screen"
       style={
         {
           ["--background" as any]: "oklch(0.12 0 0)",
@@ -190,93 +97,46 @@ export default function EventsPage() {
             <h1 className="mt-2 text-balance text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl">
               UPCOMING <span className="text-accent">EVENTS</span>
             </h1>
+
             <p className="mt-4 max-w-2xl text-pretty text-muted-foreground leading-relaxed">
-              Join us for competitions, training sessions, community gatherings, and more. Register early to secure your
+              Join us for <span className="text-accent">AI</span> workshops, hackathons, community meetups, and research presentations. Register early to secure your
               spot at our exciting upcoming events.
             </p>
           </div>
         </section>
 
-        {/* Featured Event */}
-        {featuredEvent && (
-          <section className="border-b border-border bg-card/30 py-10 md:py-14">
-            <div className="mx-auto max-w-6xl px-4">
-              <div className="mb-6 flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-accent" aria-hidden="true" />
-                <p className="text-sm font-medium text-accent">Next Event</p>
-              </div>
 
-              <div className="grid gap-8 md:grid-cols-2 md:gap-10">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border bg-muted">
-                  <img
-                    src={featuredEvent.image || "/placeholder.svg"}
-                    alt={featuredEvent.title}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
 
-                <div className="flex flex-col justify-center">
-                  <Badge variant="outline" className="w-fit bg-accent/20 text-accent border-accent/30">
-                    {featuredEvent.category}
-                  </Badge>
-                  <h2 className="mt-4 text-3xl font-semibold md:text-4xl">{featuredEvent.title}</h2>
-                  <p className="mt-4 text-pretty text-muted-foreground leading-relaxed">{featuredEvent.description}</p>
-
-                  <div className="mt-6 space-y-2 text-sm">
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Calendar size={16} className="text-accent" aria-hidden="true" />
-                      <span>
-                        {new Date(featuredEvent.date).toLocaleDateString("en-US", {
-                          month: "long",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-accent">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                        <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                      </svg>
-                      <span>{featuredEvent.time}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-accent">
-                        <path
-                          d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        />
-                        <circle cx="12" cy="10" r="3" stroke="currentColor" strokeWidth="2" />
-                      </svg>
-                      <span>{featuredEvent.location}</span>
-                    </div>
-                  </div>
-
-                  <button className="mt-6 inline-flex h-11 w-fit items-center justify-center rounded-md bg-accent px-8 text-sm font-medium text-accent-foreground hover:bg-accent/90 transition-colors">
-                    Register Now
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Filter Section */}
+        {/* Status and Category Filters */}
         <section className="border-b border-border py-6">
           <div className="mx-auto max-w-6xl px-4">
+            {/* Status Filter */}
+            <div className="flex flex-wrap gap-2 justify-center mb-4">
+              {eventStatuses.map((status) => (
+                <button
+                  key={status}
+                  onClick={() => handleStatusChange(status)}
+                  className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-150 ${selectedStatus === status
+                    ? "bg-accent text-accent-foreground"
+                    : "bg-background text-muted-foreground hover:bg-accent/20 border border-border"
+                    }`}
+                >
+                  {status}
+                </button>
+              ))}
+            </div>
+            {/* Category Filter */}
             <div className="flex items-center gap-3 overflow-x-auto pb-2">
               <Filter className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
               <div className="flex gap-2">
                 {categories.map((category) => (
                   <button
                     key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                      selectedCategory === category
-                        ? "bg-accent text-accent-foreground"
-                        : "bg-card/50 text-muted-foreground hover:bg-muted hover:text-foreground"
-                    }`}
+                    onClick={() => handleCategoryChange(category)}
+                    className={`whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-all duration-150 ${selectedCategory === category
+                      ? "bg-accent/20 text-accent border border-accent"
+                      : "bg-background text-muted-foreground hover:bg-accent/10 hover:text-foreground border border-border"
+                      }`}
                   >
                     {category}
                   </button>
@@ -297,21 +157,43 @@ export default function EventsPage() {
             </div>
 
             {filteredEvents.length > 0 ? (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 min-h-[400px]">
                 {filteredEvents.map((event) => (
-                  <EventCard key={event.id} event={event} />
+                  <EventCard key={`${selectedStatus}-${event.id}`} event={event} />
                 ))}
               </div>
+            ) : selectedStatus === "Upcoming" ? (
+              <div className="text-center py-20">
+                <div className="max-w-md mx-auto">
+                  <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-accent/10 flex items-center justify-center">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="text-accent">
+                      <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-semibold mb-4">Events Coming Soon</h3>
+                  <p className="text-muted-foreground mb-6">
+                    We're planning exciting <span className="text-accent">AI</span> events and workshops that will be announced here. Stay tuned for innovative learning opportunities and networking events.
+                  </p>
+                  <a
+                    href="https://chat.whatsapp.com/L6LzenOpW8GG44q1fHjM4s"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-11 items-center justify-center rounded-md bg-accent px-8 text-sm font-medium text-accent-foreground hover:bg-accent/90 transition-colors"
+                  >
+                    Get Notified
+                  </a>
+                </div>
+              </div>
             ) : (
-              <div className="rounded-lg border border-border bg-card/50 p-12 text-center">
-                <p className="text-muted-foreground">No events found in this category.</p>
+              <div className="rounded-lg border border-border bg-background p-12 text-center min-h-[400px] flex items-center justify-center">
+                <p className="text-foreground">No events found in this category.</p>
               </div>
             )}
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="border-t border-border bg-card/30">
+        <section className="border-t border-border bg-background">
           <div className="mx-auto max-w-6xl px-4 py-10 md:py-14">
             <div className="text-center">
               <h2 className="text-3xl font-semibold md:text-4xl">

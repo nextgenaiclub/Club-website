@@ -7,10 +7,10 @@ export function StatsStrip() {
     <section id="community" className="mx-auto max-w-6xl px-4 py-10 md:px-6 lg:px-8">
       <div className="grid grid-cols-2 gap-4 rounded-xl border border-border bg-secondary/40 p-5 md:grid-cols-4">
         {[
-          ["Active Members", "1,240+"],
-          ["Projects Shipped", "180+"],
-          ["Weekly Events", "3–5"],
-          ["Partner Orgs", "12"],
+          ["Active Members", "27"],
+          ["AI Projects", "Coming Soon"],
+          ["Workshops", "Coming Soon"],
+          ["Founded", "Sept 2025"],
         ].map(([label, value], i) => (
           <motion.div
             key={label}

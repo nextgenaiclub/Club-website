@@ -15,10 +15,11 @@ export async function POST(request: Request) {
     console.log("Sending email via Resend:", { name, email, message }); // For debugging
 
     const { data, error } = await resend.emails.send({
-      from: "Contact Form <noreply@yourdomain.com>", // Replace with VERIFIED domain email
-      to: ["your-actual-email@yourdomain.com"], // Replace with YOUR real email (not delivered@resend.dev)
-      subject: "New Contact Form Submission",
+      from: "NextGenAI Contact Form <onboarding@resend.dev>", // Using Resend's default sender
+      to: ["nextgenai.club@vupune.ac.in"], // Your NextGenAI club email
+      subject: "New Contact Form Submission - NextGenAI Club",
       react: EmailTemplate({ name, email, message }),
+      replyTo: email, // This allows you to reply directly to the person who submitted the form
     });
 
     if (error) {

@@ -5,21 +5,23 @@ export function ContactInfoCards() {
   const items = [
     {
       title: "Office Location",
-      body: "4800 Park Ave, Midtown,\nNew Mexico 3854",
-      link: "Direction",
+      body: "Vishwakarma University\nKondhwa Budruk, Pune, Maharashtra 411048",
+      link: "Get Directions",
+      href: "https://maps.google.com/?q=Vishwakarma+University+Kondhwa+Budruk+Pune+Maharashtra+411048",
       icon: MapPin,
+      showLink: true,
     },
     {
       title: "Working Hours",
       body: "Sun–Fri: 10:00am–06:00pm\nSat: 10:00am–02:00pm",
-      link: "Learn more",
       icon: Clock,
+      showLink: false,
     },
     {
       title: "Communication",
-      body: "+123 456 7891\nclub@yourclub.com",
-      link: "Support",
+      body: "+91 74478 67557\nnextgenai.club@vupune.ac.in",
       icon: Phone,
+      showLink: false,
     },
   ]
 
@@ -37,10 +39,17 @@ export function ContactInfoCards() {
             </CardHeader>
             <CardContent className="text-sm text-muted-foreground whitespace-pre-line">
               {item.body}
-              <div className="mt-4 inline-flex items-center gap-1 text-accent">
-                <span className="text-sm">{item.link}</span>
-                <ArrowRight size={16} aria-hidden="true" />
-              </div>
+              {item.showLink && (
+                <a 
+                  href={item.href}
+                  target={item.href?.startsWith('http') ? '_blank' : '_self'}
+                  rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="mt-4 inline-flex items-center gap-1 text-accent hover:text-accent/80 transition-colors cursor-pointer"
+                >
+                  <span className="text-sm">{item.link}</span>
+                  <ArrowRight size={16} aria-hidden="true" />
+                </a>
+              )}
             </CardContent>
           </Card>
         )
