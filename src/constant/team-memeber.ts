@@ -14,7 +14,7 @@ export const teams: Record<string, TeamMember[]> = {
       id: 1,
       name: 'Sufia Sayyed',
       role: 'President',
-      image: '/president.jpg',
+      image: '/president-new.jpg',
       linkedin: 'https://www.linkedin.com/in/sufia-sayyed',
       github: 'https://instagram.com/sufii._02',
     },

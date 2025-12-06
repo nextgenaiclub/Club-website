@@ -144,8 +144,10 @@ export default function ContactPage() {
                   nextgenai.club@vupune.ac.in
                   <br />
                   +91 74478 67557
+                  <br />
+                  +91 77690 91195
                 </p>
-                
+
                 {/* Action Buttons */}
                 <ContactActionButtons />
 

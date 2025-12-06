@@ -51,6 +51,10 @@ export default function NextGenAIFooter() {
                 <span>+91 74478 67557</span>
               </div>
               <div className="flex items-center gap-1 text-gray-300 text-xs">
+                <Phone className="w-3 h-3 text-yellow-400" />
+                <span>+91 77690 91195</span>
+              </div>
+              <div className="flex items-center gap-1 text-gray-300 text-xs">
                 <Mail className="w-3 h-3 text-yellow-400" />
                 <span>nextgenai.club@vupune.ac.in</span>
               </div>

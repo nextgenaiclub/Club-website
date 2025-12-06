@@ -19,7 +19,7 @@ export function ContactInfoCards() {
     },
     {
       title: "Communication",
-      body: "+91 74478 67557\nnextgenai.club@vupune.ac.in",
+      body: "+91 74478 67557\n+91 77690 91195\nnextgenai.club@vupune.ac.in",
       icon: Phone,
       showLink: false,
     },
@@ -40,7 +40,7 @@ export function ContactInfoCards() {
             <CardContent className="text-sm text-muted-foreground whitespace-pre-line">
               {item.body}
               {item.showLink && (
-                <a 
+                <a
                   href={item.href}
                   target={item.href?.startsWith('http') ? '_blank' : '_self'}
                   rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
