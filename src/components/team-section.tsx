@@ -31,6 +31,31 @@ const InfiniteMovingCards = ({
 
   useEffect(() => {
     addAnimation();
+
+    // Set up Intersection Observer to start animation when section is visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setStart(true);
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Start when 10% of the section is visible
+        rootMargin: '0px'
+      }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
   }, []);
 
   function addAnimation() {
@@ -44,7 +69,7 @@ const InfiniteMovingCards = ({
       });
       getDirection();
       getSpeed();
-      setStart(true);
+      // Don't set start to true here anymore - let the Intersection Observer handle it
     }
   }
 
@@ -130,9 +155,8 @@ const InfiniteMovingCards = ({
       `}</style>
       <ul
         ref={scrollerRef}
-        className={`flex min-w-full shrink-0 gap-6 py-8 w-max flex-nowrap ${
-          start ? 'animate-scroll' : ''
-        }`}
+        className={`flex min-w-full shrink-0 gap-6 py-8 w-max flex-nowrap ${start ? 'animate-scroll' : ''
+          }`}
       >
         {items.map((item, idx) => (
           <li

@@ -33,12 +33,12 @@ function ParticleField({ mode }: { mode: number }) {
         }
     });
 
-    // Color based on mode
+    // Color based on mode - warm white tones
     const color = useMemo(() => {
         switch (mode) {
-            case 0: return "#4f46e5"; // Indigo for AI
-            case 1: return "#10b981"; // Emerald for ML
-            case 2: return "#f59e0b"; // Amber for GenAI
+            case 0: return "#f5f5dc"; // Warm beige for AI
+            case 1: return "#faf0e6"; // Linen white for ML
+            case 2: return "#ffd700"; // Gold for GenAI
             default: return "#ffffff";
         }
     }, [mode]);
@@ -92,9 +92,9 @@ function Connections({ mode }: { mode: number }) {
 
     const color = useMemo(() => {
         switch (mode) {
-            case 0: return new THREE.Color("#818cf8");
-            case 1: return new THREE.Color("#34d399");
-            case 2: return new THREE.Color("#fbbf24");
+            case 0: return new THREE.Color("#f5f5dc"); // Warm beige
+            case 1: return new THREE.Color("#faf0e6"); // Linen white
+            case 2: return new THREE.Color("#ffd700"); // Gold
             default: return new THREE.Color("#ffffff");
         }
     }, [mode]);
